@@ -6,19 +6,14 @@ use App\Http\Actions\UrlActions;
 use App\Models\UrlMapping;
 use App\Models\UrlType;
 use Illuminate\Http\Request;
-use Crisu83\ShortId\ShortId;
 
-class ShortUrlController extends Controller
+class RenameUrlController extends Controller
 {
-
     public $urlType;
-    public $shortId;
 
     function __construct() {
-        $this->urlType = UrlType::where('type', 'srt')->firstOrFail();
-        $this->shortId = ShortId::create();
+        $this->urlType = UrlType::where('type', 'rnm')->firstOrFail();
     }
-
 
     /**
      * Display a listing of the resource.
@@ -49,12 +44,12 @@ class ShortUrlController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'label' => 'required',
             'url' => 'required'
         ]);
 
         $result = UrlMapping::create(array_merge([
-            'url_type_id' => $this->urlType->id,
-            'label' => $this->shortId->generate()
+            'url_type_id' => $this->urlType->id
         ], $validated));
 
         return response()->json([

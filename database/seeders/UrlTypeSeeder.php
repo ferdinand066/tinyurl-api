@@ -16,10 +16,10 @@ class UrlTypeSeeder extends Seeder
     public function run()
     {
         UrlType::create([
-            'type' => 'srt'
+            'type' => 'tny'
         ]);
         UrlType::create([
-            'type' => 'tny'
+            'type' => 'rnm'
         ]);
     }
 }

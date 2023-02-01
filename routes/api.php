@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ShortUrlController;
+use App\Http\Controllers\RenameUrlController;
 use App\Http\Controllers\TinyUrlController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,5 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResources([
     'tny' => TinyUrlController::class,
-    'srt' => ShortUrlController::class,
+    'rnm' => RenameUrlController::class,
 ], ['except' => 'index']);

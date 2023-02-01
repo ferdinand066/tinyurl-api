@@ -6,14 +6,19 @@ use App\Http\Actions\UrlActions;
 use App\Models\UrlMapping;
 use App\Models\UrlType;
 use Illuminate\Http\Request;
+use Crisu83\ShortId\ShortId;
 
 class TinyUrlController extends Controller
 {
+
     public $urlType;
+    public $shortId;
 
     function __construct() {
         $this->urlType = UrlType::where('type', 'tny')->firstOrFail();
+        $this->shortId = ShortId::create();
     }
+
 
     /**
      * Display a listing of the resource.
@@ -44,12 +49,12 @@ class TinyUrlController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'label' => 'required',
             'url' => 'required'
         ]);
 
         $result = UrlMapping::create(array_merge([
-            'url_type_id' => $this->urlType->id
+            'url_type_id' => $this->urlType->id,
+            'label' => $this->shortId->generate()
         ], $validated));
 
         return response()->json([
