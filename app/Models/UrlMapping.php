@@ -10,5 +10,9 @@ class UrlMapping extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $fillable = ['label', 'url', 'url_type_id'];
+    protected $fillable = ['label', 'url', 'url_type_id', 'user_id'];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

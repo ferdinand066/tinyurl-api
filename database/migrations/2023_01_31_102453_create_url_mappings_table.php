@@ -16,6 +16,9 @@ return new class extends Migration
         Schema::create('url_mappings', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignId('url_type_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('user_id')
+                ->nullable()->default(null)
+                ->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('label');
             $table->string('url');
             $table->timestamps();
