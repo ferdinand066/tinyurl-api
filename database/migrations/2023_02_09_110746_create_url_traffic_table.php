@@ -13,14 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('url_mappings', function (Blueprint $table) {
+        Schema::create('url_traffic', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignId('url_type_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignUuid('user_id')
-                ->nullable()->default(null)
-                ->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('label');
-            $table->string('url');
+            $table->foreignUuid('url_mapping_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
@@ -32,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('url_mappings');
+        Schema::dropIfExists('url_traffic');
     }
 };

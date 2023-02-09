@@ -70,7 +70,7 @@ class TinyUrlController extends Controller
      */
     public function show(string $string, UrlActions $actions)
     {
-        $url = $actions->show($string, $this->urlType->type);
+        $url = $actions->show($string, $this->urlType->id);
 
         return response()->json([
             'url' => $url
