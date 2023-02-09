@@ -44,9 +44,18 @@ class RenameUrlController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'label' => 'required',
+            'alias' => 'required',
             'url' => 'required'
         ]);
+
+        $validated['label'] = $validated['alias'];
+        unset($validated['alias']);
+
+        $availableUrl = UrlMapping::where([['url_type_id', $this->urlType->id], ['label', $validated['label']]])->first();
+
+        if ($availableUrl) return response()->json([
+            'error' => 'Alias already exists!'
+        ], 422);
 
         $result = UrlMapping::create(array_merge([
             'url_type_id' => $this->urlType->id
